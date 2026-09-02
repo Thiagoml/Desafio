@@ -9,11 +9,6 @@ body {
     background: #FBF5EF;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
 header,
 nav,
 .cards,
