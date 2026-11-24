@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Contato | Última Xícara{% endblock %}
+
+{% block hero %}
+<section class="hero">
+    <h1>Entre em contato com a Última Xícara</h1>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="contato-grid">
+        <div>
+            <h2>Envie sua mensagem</h2>
+            <form method="post" action="{{ url_for('contato') }}">
+                <div class="mb-3">
+                    <label for="femail" class="form-label">Seu e-mail</label>
+                    <input type="email" class="form-control" id="femail" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lassunto" class="form-label">Assunto</label>
+                    <input type="text" class="form-control" id="lassunto" name="assunto" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mensagem" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="mensagem" name="mensagem" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Outros canais</h2>
+            <p><strong>E-mail:</strong> ultimaxicara@gmail.com</p>
+            <p><strong>Telefone:</strong> (12) 1234-5678</p>
+            <p><strong>Endereço:</strong> Rua do Café, 123 — Centro, São José dos Campos - SP</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

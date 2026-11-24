@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Mensagens | Última Xícara{% endblock %}
+
+{% block hero %}
+<section class="hero">
+    <h1>Mensagens recebidas</h1>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    {% if mensagens %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>E-mail</th>
+                    <th>Assunto</th>
+                    <th>Mensagem</th>
+                    <th>Enviada em</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in mensagens %}
+                <tr>
+                    <td>{{ m.id }}</td>
+                    <td>{{ m.email }}</td>
+                    <td>{{ m.assunto }}</td>
+                    <td>{{ m.mensagem }}</td>
+                    <td>{{ m.criado_em.strftime("%d/%m/%Y %H:%M") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>Nenhuma mensagem recebida ainda.</p>
+    {% endif %}
+    <a href="{{ url_for('contato') }}" class="btn btn-primary">Enviar mensagem</a>
+</section>
+{% endblock %}

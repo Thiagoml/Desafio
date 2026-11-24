@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Cardápio | Última Xícara{% endblock %}
+
+{% block hero %}
+<section class="hero">
+    <div>
+        <h1>O seu dia começa com uma xícara</h1>
+        <p>Café artesanal, ambiente aconchegante e sabores que fazem parte do seu dia.</p>
+        <a href="{{ url_for('sobre') }}"><button type="button">Conheça a nossa cafeteria</button></a>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="cards">
+        {% for p in produtos %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ url_for('static', filename='images/' ~ p.imagem) }}" class="card-img-top" alt="{{ p.nome }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ p.nome }}</h5>
+                <p class="card-text">{{ p.resumo }}</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ p.id }}">Pedir</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra %}
+{% for p in produtos %}
+<!-- Modal: {{ p.nome }} -->
+<div class="modal fade" id="modal-{{ p.id }}" tabindex="-1" aria-labelledby="modal-{{ p.id }}-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-{{ p.id }}-label">{{ p.nome }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <img src="{{ url_for('static', filename='images/' ~ p.imagem) }}" class="img-fluid rounded mb-3" alt="{{ p.nome }}">
+                <p>{{ p.descricao }}</p>
+                <p><strong>Preço:</strong> R$ {{ p.preco }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Confirmar pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
