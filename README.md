@@ -97,33 +97,3 @@ docker compose down -v                     # parar E apagar o banco (recomeçar 
 ```
 O `db/init.sql` só roda na primeira vez que o volume do banco é criado. Se
 mudar a tabela, apague o banco com `down -v` e suba de novo.
-
-## Variante: duas instâncias EC2 (se o professor exigir)
-
-O mesmo projeto serve. Crie `app-seunome` e `db-seunome` na mesma VPC e com a
-mesma chave. Security Groups: App com `22` e `5000` (qualquer origem); DB com
-`22` e `3306` **somente a partir do Security Group da App**.
-
-Na instância **DB** (instale Docker, clone o repositório e crie o `.env`
-com `DB_BIND=0.0.0.0` e as senhas):
-```bash
-docker compose up -d db
-```
-
-Na instância **App** (`.env` com `DB_HOST=IP_PRIVADO_DA_DB`):
-```bash
-docker compose up -d --build --no-deps web
-```
-
-Para restringir o usuário ao IP privado da App, na instância DB:
-```bash
-docker compose exec db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "RENAME USER '"'"'$MYSQL_USER'"'"'@'"'"'%'"'"' TO '"'"'$MYSQL_USER'"'"'@'"'"'IP_PRIVADO_DA_APP'"'"';"'
-```
-
-## Checklist de entrega
-
-- [ ] Link da aplicação: `http://IP_PUBLICO:5000`
-- [ ] Link da listagem: `http://IP_PUBLICO:5000/listar`
-- [ ] Link do repositório no GitHub (com `.env.example`, sem `.env`)
-- [ ] Print do terminal com o resultado do SELECT
-- [ ] Print das regras de entrada do Security Group
